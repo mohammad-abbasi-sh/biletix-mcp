@@ -30,7 +30,7 @@ the homepage's currently featured events (keyword + city) — the site's
 own /search page is an Angular shell and its search API is not directly
 reachable, so keyword search is scoped to featured listings. Read-only;
 transport uses Chrome TLS impersonation; requests are spaced ~0.8s apart.
-Built by Mohammad Abbasi (mohammad-abbasi-sh) — Turkey MCP
+Built by Mohammad Abbasi (mohammad-abbasi-sh) — https://almanibama.ir · https://mabbasi.ir — Turkey MCP
 factory.\
 """
 
