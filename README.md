@@ -76,3 +76,7 @@ Offline tests run on recorded fixtures (real pages fetched 2026-11-07); live tes
 ## License
 
 MIT — see [LICENSE](LICENSE).
+
+---
+
+Built by [Mohammad Abbasi](https://github.com/mohammad-abbasi-sh) — [Almanibama](https://almanibama.ir) · [mabbasi.ir](https://mabbasi.ir)
