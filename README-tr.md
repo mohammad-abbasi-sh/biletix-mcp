@@ -65,3 +65,7 @@ python -m venv .venv && .venv/bin/pip install -e .
 ## Lisans
 
 MIT — bkz. [LICENSE](LICENSE).
+
+---
+
+Built by [Mohammad Abbasi](https://github.com/mohammad-abbasi-sh) — [Almanibama](https://almanibama.ir) · [mabbasi.ir](https://mabbasi.ir)
