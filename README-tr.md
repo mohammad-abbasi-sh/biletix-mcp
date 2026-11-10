@@ -15,7 +15,7 @@ MCP istemci yapılandırmanıza ekleyin (stdio):
   "mcpServers": {
     "biletix": {
       "command": "uvx",
-      "args": ["biletix-mcp==0.1.0"]
+      "args": ["biletix-mcp==0.1.1"]
     }
   }
 }
@@ -41,9 +41,9 @@ biletix.com ana sayfasını (`/anasayfa/TURKIYE/tr`), etkinlik detay sayfaların
 ## Kurulum
 
 ```bash
-uvx biletix-mcp==0.1.0        # doğrudan çalıştır (uv gerekir)
+uvx biletix-mcp==0.1.1        # doğrudan çalıştır (uv gerekir)
 # veya
-pip install biletix-mcp==0.1.0
+pip install biletix-mcp==0.1.1
 biletix-mcp    # MCP sunucusunu stdio üzerinde başlatır
 ```
 
