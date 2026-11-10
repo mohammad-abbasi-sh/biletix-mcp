@@ -15,7 +15,7 @@ mcp-name: io.github.mohammad-abbasi-sh/biletix-mcp
   "mcpServers": {
     "biletix": {
       "command": "uvx",
-      "args": ["biletix-mcp==0.1.0"]
+      "args": ["biletix-mcp==0.1.1"]
     }
   }
 }
@@ -41,9 +41,9 @@ biletix.com صفحهٔ اصلی (`/anasayfa/TURKIYE/tr`)، صفحات جزئیا
 ## نصب
 
 ```bash
-uvx biletix-mcp==0.1.0        # اجرای مستقیم (نیازمند uv)
+uvx biletix-mcp==0.1.1        # اجرای مستقیم (نیازمند uv)
 # یا
-pip install biletix-mcp==0.1.0
+pip install biletix-mcp==0.1.1
 biletix-mcp    # سرور MCP را روی stdio راه می‌اندازد
 ```
 
