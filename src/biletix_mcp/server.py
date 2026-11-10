@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+from datetime import datetime, timezone
 from collections import Counter
 
 from mcp.server.fastmcp import FastMCP
@@ -34,11 +35,27 @@ Built by Mohammad Abbasi (mohammad-abbasi-sh) — https://almanibama.ir · https
 factory.\
 """
 
+
+_SOURCE = "biletix.com"
+_DISCLAIMER = "Unofficial read-only data from biletix.com; verify on the site before acting on it."
+
+
+def _envelope() -> dict:
+    return {
+        "fetched_at": datetime.now(timezone.utc).isoformat(),
+        "source": _SOURCE,
+        "disclaimer": _DISCLAIMER,
+    }
+
+
+def _ok(payload: dict) -> str:
+    return json.dumps({**_envelope(), **payload}, ensure_ascii=False)
+
 _SECTIONS = ("browse", "starting_soon", "all")
 
 
 def _err(e: Exception) -> str:
-    return json.dumps({"error": str(e)}, ensure_ascii=False)
+    return _ok({"error": str(e)})
 
 
 def _validate_limit(limit: int, lo: int = 1, hi: int = 50) -> int:
@@ -65,10 +82,7 @@ def biletix_trending(section: str = "browse", limit: int = 10) -> str:
         rows = data.get(section, [])
     except (ValueError, _http.BiletixError) as e:
         return _err(e)
-    return json.dumps(
-        {"section": section, "count": min(limit, len(rows)), "events": rows[:limit]},
-        ensure_ascii=False,
-    )
+    return _ok({"section": section, "count": min(limit, len(rows)), "events": rows[:limit]})
 
 
 @mcp.tool()
@@ -100,15 +114,12 @@ def biletix_search_events(query: str, city: str | None = None,
             matches.append(r)
     except (ValueError, _http.BiletixError) as e:
         return _err(e)
-    return json.dumps(
-        {
+    return _ok({
             "query": query.strip(),
             "city": city or None,
             "count": min(limit, len(matches)),
             "events": matches[:limit],
-        },
-        ensure_ascii=False,
-    )
+        })
 
 
 @mcp.tool()
@@ -126,7 +137,7 @@ def biletix_get_event(event_url: str) -> str:
         data = _E.parse_event_detail(html_text)
     except (ValueError, _http.BiletixError) as e:
         return _err(e)
-    return json.dumps(data, ensure_ascii=False)
+    return _ok(data)
 
 
 @mcp.tool()
@@ -148,15 +159,12 @@ def biletix_list_by_category(category: str, limit: int = 10) -> str:
         present = sorted({r.get("category") for r in rows if r.get("category")})
     except (ValueError, _http.BiletixError) as e:
         return _err(e)
-    return json.dumps(
-        {
+    return _ok({
             "category": cat,
             "categories_present": present,
             "count": min(limit, len(matches)),
             "events": matches[:limit],
-        },
-        ensure_ascii=False,
-    )
+        })
 
 
 @mcp.tool()
@@ -183,10 +191,7 @@ def biletix_list_venues(limit: int = 20) -> str:
         ]
     except (ValueError, _http.BiletixError) as e:
         return _err(e)
-    return json.dumps(
-        {"count": min(limit, len(venues)), "venues": venues[:limit]},
-        ensure_ascii=False,
-    )
+    return _ok({"count": min(limit, len(venues)), "venues": venues[:limit]})
 
 
 @mcp.tool()
@@ -214,10 +219,17 @@ def biletix_venue_events(venue_url: str, limit: int = 10) -> str:
         "count": min(limit, len(rows)),
         "events": rows[:limit],
     }
-    return json.dumps(
-        {k: v for k, v in out.items() if v not in (None, "")},
-        ensure_ascii=False,
-    )
+    return _ok({k: v for k, v in out.items() if v not in (None, "")})
+
+
+@mcp.tool()
+def biletix_health() -> str:
+    """Check whether biletix.com is reachable right now.
+
+    Returns status ok (HTTP 200), blocked (HTTP 403/429 — bot wall or
+    rate limit) or error, plus the HTTP status and the probed URL.
+    One polite request; it does not fetch any listings."""
+    return _ok(_http.health_check())
 
 
 def main() -> None:
