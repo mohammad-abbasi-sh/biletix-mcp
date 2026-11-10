@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "biletix-mcp"
-version = "0.1.0"
+version = "0.1.1"
 description = "Unofficial read-only MCP server for biletix.com events (trending, search, detail, venues)"
 readme = "README.md"
 license = { text = "MIT" }
