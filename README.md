@@ -15,7 +15,7 @@ Add to your MCP client config (stdio):
   "mcpServers": {
     "biletix": {
       "command": "uvx",
-      "args": ["biletix-mcp==0.1.0"]
+      "args": ["biletix-mcp==0.1.1"]
     }
   }
 }
@@ -52,9 +52,9 @@ biletix.com serves its homepage (`/anasayfa/TURKIYE/tr`), event detail pages (`/
 ## Install
 
 ```bash
-uvx biletix-mcp==0.1.0        # run directly (needs uv)
+uvx biletix-mcp==0.1.1        # run directly (needs uv)
 # or
-pip install biletix-mcp==0.1.0
+pip install biletix-mcp==0.1.1
 biletix-mcp    # starts the MCP server on stdio
 ```
 
